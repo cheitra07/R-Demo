@@ -1,0 +1,38 @@
+---
+title: "Sales Report"
+output: html_document
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+# Sample data (same as in the app)
+sales_data <- data.frame(
+  date = seq.Date(from = as.Date("2024-01-01"), by = "month", length.out = 25),
+  sales = c(100, 110, 115, 120, 125, 130, 125, 135, 140, 145, 150, 155, 160, 165, 170, 
+            180, 175, 185, 190, 195, 200, 210, 220, 215, 230)
+)
+
+# Function to determine line colors based on sales data
+get_line_color <- function(data) {
+  color_vector <- c("blue")  # Default to blue for no change
+  for (i in 2:length(data$sales)) {
+    if (data$sales[i] > data$sales[i - 1]) {
+      color_vector <- c(color_vector, "green")
+    } else {
+      color_vector <- c(color_vector, "red")
+    }
+  }
+  return(color_vector)
+}
+
+# Get color vector for the plot
+color_vector <- get_line_color(sales_data)
+
+# Plotly plot with color changes
+plot <- plot_ly(data = sales_data, x = ~date, y = ~sales, type = 'scatter', mode = 'lines+markers', 
+                hoverinfo = 'text', text = ~paste('Sales: ', sales), line = list(color = color_vector)) %>%
+  layout(title = 'Sales Escalation', xaxis = list(title = 'Date'), yaxis = list(title = 'Sales'))
+
+# Render the plot
+plot

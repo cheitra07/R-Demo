@@ -1,0 +1,52 @@
+---
+title: "Sales Escalation Report"
+output: html_document
+---
+
+## Sales Data Summary
+
+This report summarizes the sales data for the selected time period.
+
+```{r}
+# Sample data for sales (make sure this is the filtered data from Shiny in a real app)
+sales_data <- data.frame(
+  date = seq.Date(from = as.Date("2024-01-01"), by = "month", length.out = 25),
+  sales = c(100, 110, 115, 120, 125, 130, 125, 135, 140, 145, 150, 155, 160, 165, 170, 
+            180, 175, 185, 190, 195, 200, 210, 220, 215, 230)
+)
+
+# Display summary of the sales data
+summary(sales_data)
+
+library(plotly)
+
+# Function to color the line chart based on sales increase/decrease
+get_line_color <- function(data) {
+  color_vector <- c("blue")  # Default to blue for no change
+  for (i in 2:length(data$sales)) {
+    if (data$sales[i] > data$sales[i - 1]) {
+      color_vector <- c(color_vector, "green")
+    } else {
+      color_vector <- c(color_vector, "red")
+    }
+  }
+  return(color_vector)
+}
+
+# Get color vector for the plot
+color_vector <- get_line_color(sales_data)
+
+# Plotly plot
+plot <- plot_ly(data = sales_data, x = ~date, y = ~sales, type = 'scatter', mode = 'lines+markers', 
+                hoverinfo = 'text', text = ~paste('Sales: ', sales), line = list(color = color_vector)) %>%
+  layout(title = 'Sales Escalation', xaxis = list(title = 'Date'), yaxis = list(title = 'Sales'))
+
+# Display the plot
+plot
+
+# Save the plot as a PNG image
+img_path <- "sales_plot.png"
+export(plot, file = img_path)
+
+# Include the saved image in the report
+knitr::include_graphics(img_path)

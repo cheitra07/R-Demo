@@ -1,0 +1,30 @@
+
+---
+
+#### 5. **Deploy to GitHub and AWS Kubernetes**
+1. **GitHub Actions Workflow** (`deploy.yml`):
+   ```yaml
+   name: Deploy Shiny App
+
+   on:
+     push:
+       branches:
+         - main
+
+   jobs:
+     build-and-deploy:
+       runs-on: ubuntu-latest
+
+       steps:
+       - name: Checkout code
+         uses: actions/checkout@v2
+
+       - name: Build Docker image
+         run: docker build -t shiny-app .
+
+       - name: Push to AWS ECR
+         run: aws ecr create-repository --repository-name shiny-app
+         output: 
+  html_document:
+    self_contained: true
+

@@ -1,0 +1,11 @@
+Invoice_ID,Product_Name,Region,Invoice_Date,Delivery_Date,Invoice_Price,Delivery_Price,Units_Sold
+101,Entyvio,North America,1/5/2023,2/10/2023,450,460,100
+102,Ninlaro,Europe,1/10/2023,2/15/2023,500,520,150
+103,Alunbrig,Asia,1/12/2023,2/18/2023,480,490,200
+104,Velcade,North America,2/1/2023,3/5/2023,550,570,120
+105,Trintellix,Europe,2/20/2023,3/25/2023,420,435,80
+106,Entyvio,Asia,3/10/2023,4/15/2023,460,470,90
+107,Ninlaro,North America,3/25/2023,4/30/2023,520,530,110
+108,Alunbrig,Europe,4/5/2023,5/10/2023,490,500,100
+109,Velcade,Asia,4/15/2023,5/20/2023,570,590,130
+110,Trintellix,North America,5/1/2023,6/5/2023,435,450,95
